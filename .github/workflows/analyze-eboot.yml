@@ -121,7 +121,8 @@ jobs:
           mkdir -p ghidra_proj
           "$GHIDRA_DIR/support/analyzeHeadless" ghidra_proj PS4FT \
             -import ./eboot_rebuilt.elf \
-            -processor x86:LE:64:default:gcc \
+            -processor x86:LE:64:default \
+            -cspec gcc \
             -analysisTimeoutPerFile 3600 \
             -scriptPath ./scripts \
             -postScript ExportGZF.java \
