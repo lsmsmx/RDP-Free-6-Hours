@@ -14,15 +14,13 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Download Ghidra (11.2.1, asset resolved via API)
+      - name: Download Ghidra (11.2.1, direct URL)
         run: |
           set -euo pipefail
-          API="https://api.github.com/repos/NationalSecurityAgency/ghidra/releases/tags/Ghidra_11.2.1_build"
-          URL=$(curl -sL "$API" | python3 -c "import sys,json;d=json.load(sys.stdin);print(next(a['browser_download_url'] for a in d['assets'] if a['name'].endswith('.zip')))")
-          echo "Downloading $URL"
-          curl -sL -o ghidra.zip "$URL"
+          curl -sSL -o ghidra.zip \
+            "https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.2.1_build/ghidra_11.2.1_PUBLIC_20241105.zip"
           unzip -q ghidra.zip
-          ls -d ghidra_*
+          ls -d ghidra_11.2.1_PUBLIC
 
       - name: Create scripts
         run: |
